@@ -2,11 +2,13 @@ const fs = require('fs');
 
 const writefile = (data) => {
   const blog = JSON.stringify(data, null, 2);
+  
+  // Add the missing callback to handle success or error
   fs.writeFile('db.json', blog, (err) => {
     if (err) {
-      console.error('Failed to write file:', err);
+      console.log('Error writing file:', err);
     } else {
-      console.log('File written successfully');
+      console.log('File successfully written!');
     }
   });
 };

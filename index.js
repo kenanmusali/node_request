@@ -1,5 +1,6 @@
 const express = require('express');
-const readFile = require('./src/helpers/readfile');
+const { readFile } = require('./src/helpers/readfile');
+
 const app = express();
 // const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
@@ -59,3 +60,7 @@ app.listen(8081, () => {
 // crud
 // database
 // db
+
+
+
+
