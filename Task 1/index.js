@@ -45,7 +45,7 @@ app.get('/blogs', (_, res) => {
   }
 });
 
-app.get('/blogs/:id', (req, res) => {
+app.get('/blog/:id', (req, res) => {
   try {
     const { id } = req.params;
     const blog = readFile().find((item) => item.id === id);
