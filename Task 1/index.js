@@ -1,13 +1,13 @@
 const express = require('express');
 const { readFile } = require('./src/helpers/readfile');
 const app = express();
-const path = './data.json';
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 const { writefile } = require('./src/helpers/writefile');
 
 app.use(express.json());
 app.use(cors());
+
 // missing line
 
 // const fs = require('fs');
@@ -28,7 +28,6 @@ app.use(cors());
 //   });
 // });
 
-
 app.get('/blogs', (_, res) => {
 
   try {
@@ -45,6 +44,20 @@ app.get('/blogs', (_, res) => {
     });
   }
 });
+
+app.get('/blogs/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = readFile().find((item) => item.id === id);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+    return res.status(200).json(blog);
+  } catch (error) {
+    return res.status(500).json({ message: 'Error reading file' });
+  }
+});
+
 
 app.post('/blogs', (req, res) => {
   try {
@@ -127,26 +140,3 @@ app.listen(8080, () => {
   console.log('Server is running on port http://localhost:8080/');
 });
 
-
-// api
-// deploy
-// crud
-// database
-// db
-
-
-
-
-app.get("blog/:id", (req, res) => {
-  try {
-    const { id } = req.params;
-    const blog = readFile().find((item) => item.id === id);
-    if (!blog) {
-      return res.status(404).json({ message: 'Blog not found' });
-    }
-    return res.status(200).json(blog);
-  } catch (error) {
-    return res.status(500).json({ message: 'Error reading file' });
-  }
-}
-);
